@@ -6,7 +6,7 @@ import {
     TouchableOpacity,
     StyleSheet
 } from 'react-native'
-import { Reddit } from '/.Reddit';
+import { Reddit } from './Reddit';
 
 export class Todo extends Component {
 
