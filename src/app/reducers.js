@@ -19,4 +19,4 @@ const todos = (state = [], action) => {
 };
 
 
-export default reducer = combineReducers({todos, user});
+export const reducer = combineReducers({todos, user});

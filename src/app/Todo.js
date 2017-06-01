@@ -5,7 +5,9 @@ import {
     TextInput, 
     TouchableOpacity,
     StyleSheet
-} from 'react-native'
+} from 'react-native';
+
+import { TodoForm } from './TodoForm';
 
 export class Todo extends Component {
 
@@ -26,16 +28,11 @@ export class Todo extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.form}>
-                    <TextInput 
-                    style={styles.input} 
-                    value={this.state.newTodo} 
-                    onChangeText={this.handleChange.bind(this)} 
-                    />
-                    <TouchableOpacity style={styles.button} onPress={this.handlePress.bind(this)}>
-                        <Text style={styles.textButton}>Create</Text>
-                    </TouchableOpacity>
-                </View>
+                <TodoForm 
+                    handlePress={this.handlePress.bind(this)}
+                    handleChange={this.handleChange.bind(this)}
+                    value={this.state.newTodo}
+                />
                 <View style={styles.todos}>
                     {this.state.todos.map((todo, i) => (
                         <View style={styles.todo}>
@@ -53,26 +50,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20
-    },
-    form: {
-        flexDirection: 'row'
-    },
-    input: {
-        flex: 0.7,
-        fontSize: 24
-    },
-    button: {
-        flex: 0.3,
-        borderWidth: 1,
-        height: 50,
-        borderColor: 'blue',
-        borderRadius: 3,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textButton: {
-        fontSize: 24,
-        fontWeight: 'bold'
     },
     todos: {
         marginTop: 60
