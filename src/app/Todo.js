@@ -11,7 +11,9 @@ import { TodoForm } from './TodoForm';
 import { connect } from 'react-redux';
 
 export class _Todo extends Component {
-
+    static defaultProps = {
+        todos: []
+    }
     constructor(){
         super();
         this.state = {
@@ -55,7 +57,7 @@ const mapStateToProps = (state) => ({
     todos: state.todos
 })
 
-export const Todo = connect(null, mapActionsToProps)(_Todo);
+export const Todo = connect(mapStateToProps, mapActionsToProps)(_Todo);
 
 const styles = StyleSheet.create({
     container: {
