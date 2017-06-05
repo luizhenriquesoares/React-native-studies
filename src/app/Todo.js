@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
     View, 
     Text, 
@@ -9,6 +9,9 @@ import {
 
 import { TodoForm } from './TodoForm';
 import { connect } from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
+import { createTodo, getTodos } from './actionCreators';
+// import Button from 'apsl-react-native-button';
 
 export class _Todo extends Component {
     static defaultProps = {
@@ -20,6 +23,10 @@ export class _Todo extends Component {
             newTodo: ''
         }
     }
+
+    componentDidMount() {
+        this.props.getTodos()
+    }
     handleChange(text) {
         this.setState({newTodo: text});
     }
@@ -29,7 +36,9 @@ export class _Todo extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+          <LinearGradient 
+            colors={["#FF9500", "#FF5E3A"]}
+            style={styles.container}>
                 <TodoForm 
                     handlePress={this.handlePress.bind(this)}
                     handleChange={this.handleChange.bind(this)}
@@ -37,21 +46,24 @@ export class _Todo extends Component {
                 />
                 <View style={styles.todos}>
                     {this.props.todos.map((todo, i) => (
-                        <View style={styles.todo}>
-                            <Text style={styles.todoText} key={i}>{todo} </Text> 
+                        <View key={i} style={styles.todo}>
+                            <Text style={styles.todoText} key={i}>{todo.name} </Text> 
                         </View>
                     ))}
                 </View>
-            </View>
+            </LinearGradient>
         )
     }
 }
 
 const mapActionsToProps = (dispatch) => ({
     createTodo(todo){
-        dispatch({type: CREATE_TODO, payload: todo})
+        dispatch(createTodo({name: todo}))
+    },
+    getTodo(){
+        dispatch(getTodos());
     }
-})
+});
 
 const mapStateToProps = (state) => ({
     todos: state.todos

@@ -11,11 +11,11 @@ import { Provider } from 'react-redux';
 import { store } from './src/app/store';
 
 const Main = () => (
-<Provider store={store}>
-  <Root />
-</Provider>
-
+  <Provider store={store}>
+    <Root />
+  </Provider>
 );
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
