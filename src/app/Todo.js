@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     StyleSheet
 } from 'react-native'
+import { Reddit } from './Reddit';
 
 export class Todo extends Component {
 
@@ -16,16 +17,44 @@ export class Todo extends Component {
             newTodo: ''
         }
     }
+
+    componentWillMount(){
+        fetch('http://192.168.0.3:3000/todos', {
+            headers: {
+                'Accept': 'applicatio/json'
+            }
+        })
+        .then(res => res.json())
+        .then(todos => this.setState({todos}))
+    }
+
+    handlePress(){
+        fetch('http://192.168.0.3:3000/todos', {
+            method: 'POST',
+            headers: {
+                'Accept': 'applicatio/json',
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: this.state.newTodo
+            })
+        })
+        .then(res => res.json(res))
+        .then(todo => {
+            const todos = [todo,...this.state.todos];
+            this.setState({todos, newTodo: ''})
+        })
+
+    }
+
     handleChange(text) {
         this.setState({newTodo: text});
     }
-    handlePress(){
-        const todos = [...this.state.todos, this.state.newTodo]
-        this.setState({todos, newTodo: ''});
-    }
+
     render() {
         return (
             <View style={styles.container}>
+                <Reddit />
                 <View style={styles.form}>
                     <TextInput 
                     style={styles.input} 
@@ -39,7 +68,7 @@ export class Todo extends Component {
                 <View style={styles.todos}>
                     {this.state.todos.map((todo, i) => (
                         <View style={styles.todo}>
-                            <Text style={styles.todoText} key={i}>{todo} </Text> 
+                            <Text style={styles.todoText} key={i}>{todo.name} </Text> 
                         </View>
                     ))}
                 </View>

@@ -8,7 +8,12 @@ import React, { Component } from 'react';
 import { AppRegistry, StyleSheet } from 'react-native';
 import { Todo } from './src/app/Todo';
 
-const Main = () => (<Todo />);
+
+const Main = () => (
+  <Provider store={store}>
+    <Todo />
+  </Provider>
+);
 
 const styles = StyleSheet.create({
   container: {
